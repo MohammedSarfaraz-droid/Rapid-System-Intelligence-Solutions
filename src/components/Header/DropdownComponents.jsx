@@ -66,7 +66,7 @@ export const SimpleDropdown = ({ items, isOpen, arrowPosition }) => (
   </div>
 );
 
-export const MegaMenu = ({ items, isOpen, arrowLeft, columns = 3 }) => (
+export const MegaMenu = ({ items, isOpen, arrowLeft }) => (
   <div
     className={`fixed left-0 right-0 top-[64px] sm:top-[80px] bg-white shadow-xl z-10 transition-all duration-300 ${
       isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3 invisible"
@@ -74,7 +74,7 @@ export const MegaMenu = ({ items, isOpen, arrowLeft, columns = 3 }) => (
   >
     <UpArrow style={{ left: arrowLeft }} />
     <div className="mx-auto max-w-7xl px-6 py-6">
-      <ul className={`grid grid-cols-${columns} gap-x-6 gap-y-2`}>
+      <ul className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-2">
         {items.map(({ label, icon: Icon }) => (
           <li key={label}>
             <button className="w-full text-left px-4 py-3 text-[14px] text-black hover:bg-[#17b212] hover:text-white font-semibold rounded flex items-start gap-3 transition-colors">
@@ -97,7 +97,7 @@ export const ServicesMegaMenu = ({ categories, isOpen, arrowLeft }) => (
   >
     <UpArrow style={{ left: arrowLeft }} />
     <div className="mx-auto max-w-7xl px-6 py-8">
-      <div className="grid grid-cols-4 gap-x-8 gap-y-4 px-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-x-8 gap-y-4 px-4">
         {categories.map(({ title, icon: Icon }) => (
           <div key={title}>
             <button className="flex items-center gap-3 py-3 px-4 text-black font-semibold text-[15px] w-full text-left hover:bg-[#17b212] hover:text-white transition-colors rounded mb-0">

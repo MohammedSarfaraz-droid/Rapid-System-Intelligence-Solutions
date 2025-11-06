@@ -8,27 +8,21 @@ const AnimatedMarquee = ({ words = ["Ideas", "Technology", "Insights", "Results"
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{
-        delay: 0.3,
+        delay: 0.5,
         duration: 0.6,
         ease: "easeInOut",
       }}
-      className="
-        relative overflow-hidden 
-        h-12 sm:h-14 md:h-16 lg:h-[4.5rem] xl:h-20 
-        w-56 sm:w-64 md:w-72 lg:w-80 
-        backdrop-blur-sm inline-block 
-        bg-[#17b212] rounded-xl
-      "
+      className="relative overflow-hidden h-12 sm:h-14 md:h-16 lg:h-[4.5rem] xl:h-20 w-40 xs:w-48 sm:w-64 md:w-72 lg:w-80 backdrop-blur-sm inline-block bg-[#17b212] rounded-xl"
     >
       {/* Mobile */}
       <motion.div
         animate={{ y: [0, -48, -96, -144, -192] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
         className="absolute inset-0 sm:hidden"
       >
         {[...words, words[0]].map((word, i) => (
-          <div key={`mobile-${i}`} className="h-12 flex items-center justify-center px-4">
-            <span className="text-xl font-bold text-white whitespace-nowrap">{word}</span>
+          <div key={`mobile-${i}`} className="h-12 flex items-center justify-center px-3">
+            <span className="text-lg font-bold text-white whitespace-nowrap">{word}</span>
           </div>
         ))}
       </motion.div>
@@ -36,7 +30,7 @@ const AnimatedMarquee = ({ words = ["Ideas", "Technology", "Insights", "Results"
       {/* Small */}
       <motion.div
         animate={{ y: [0, -56, -112, -168, -224] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
         className="absolute inset-0 hidden sm:block md:hidden"
       >
         {[...words, words[0]].map((word, i) => (
@@ -49,7 +43,7 @@ const AnimatedMarquee = ({ words = ["Ideas", "Technology", "Insights", "Results"
       {/* Medium */}
       <motion.div
         animate={{ y: [0, -64, -128, -192, -256] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
         className="absolute inset-0 hidden md:block lg:hidden"
       >
         {[...words, words[0]].map((word, i) => (
@@ -62,7 +56,7 @@ const AnimatedMarquee = ({ words = ["Ideas", "Technology", "Insights", "Results"
       {/* Large */}
       <motion.div
         animate={{ y: [0, -80, -160, -240, -320] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
         className="absolute inset-0 hidden lg:block"
       >
         {[...words, words[0]].map((word, i) => (
