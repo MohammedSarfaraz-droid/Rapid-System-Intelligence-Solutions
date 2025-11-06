@@ -12,15 +12,13 @@ export default function Header() {
   const { openMenu, scrolled, navRef, toggleMenu } = useHeaderState();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const headerClasses = `text-white sticky top-0 w-full z-50 transition-all duration-300 ${
+  const headerClasses = `text-white sticky top-0 w-full z-50 transition-colors duration-500 ${
     scrolled ? "bg-[#0F4EA9] shadow-lg" : "bg-transparent"
   }`;
 
-  const containerClasses = `mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
-    scrolled ? "h-8 sm:h-12 py-0" : "h-16 sm:h-20 py-4"
-  }`;
+  const containerClasses = `mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 h-16 sm:h-20 py-4 transition-all duration-300`;
 
-  const logoClasses = scrolled ? "h-6 w-auto sm:h-8" : "h-10 w-auto sm:h-12";
+  const logoClasses = "h-10 w-auto sm:h-12";
 
   return (
     <header className={headerClasses}>
