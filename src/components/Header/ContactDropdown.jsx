@@ -1,62 +1,152 @@
-import { FaLinkedinIn } from "react-icons/fa";
-import { RiTwitterXFill } from "react-icons/ri";
-import { UpArrow } from "./DropdownComponents";
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaChevronDown } from "react-icons/fa";
 
 const CONTACT_LINKS = {
   "Email Us": "mailto:admin@rsisglobal.com",
   "Call Us": "tel:+971525889947",
   "WhatsApp": "https://wa.me/971525889947",
-  "Visit Office": "#", // Add office location link if needed
+  "Visit Office": "#",
 };
 
-const SOCIAL_LINKS = [
-  { icon: RiTwitterXFill, href: "https://x.com/RsisGlobal", label: "Twitter" },
-  { icon: FaLinkedinIn, href: "https://www.linkedin.com/in/rapid-system-intelligence-solutions-2b889a380", label: "LinkedIn" },
-];
+// ✅ Reusable Section Component
+const Section = ({
+  id,
+  title,
+  items,
+  onItemClick,
+  expandedSection,
+  toggleSection,
+  scrollable = false, // new prop
+}) => (
+  <div className="border-b border-white/20">
+    {/* Sticky Header */}
+    <button
+      onClick={() => toggleSection(id)}
+      className={`w-full flex items-center justify-between py-4 text-white text-lg font-bold hover:text-[#17b212] transition-colors 
+      ${scrollable ? "sticky top-0 z-20 bg-[#124EA9] shadow-md" : ""}`}
+    >
+      <span>{title}</span>
+      <motion.div
+        animate={{ rotate: expandedSection === id ? 180 : 0 }}
+        transition={{ duration: 0.3 }}
+        className="text-white text-base"
+      >
+        <FaChevronDown />
+      </motion.div>
+    </button>
 
-export const ContactDropdown = ({ items, isOpen }) => {
+    {/* Smooth Dropdown */}
+    <AnimatePresence initial={false}>
+      {expandedSection === id && (
+        <motion.div
+          key={id}
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{
+            duration: 0.35,
+            ease: [0.4, 0, 0.2, 1],
+          }}
+          className={`overflow-hidden ${
+            scrollable ? "max-h-[60vh] overflow-y-auto" : ""
+          }`}
+        >
+          <div className="pb-4 pl-4 space-y-2">
+            {items.map(({ label, title, icon: Icon }) => (
+              <button
+                key={label || title}
+                onClick={() => onItemClick?.(label || title)}
+                className="w-full flex items-center gap-3 py-2 text-white text-base hover:text-[#17b212] transition-colors text-left"
+              >
+                <Icon className="text-lg shrink-0" />
+                <span>{label || title}</span>
+              </button>
+            ))}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </div>
+);
+
+// ✅ Main Menu Component
+export const MobileMenu = ({
+  isOpen,
+  onClose,
+  companyItems,
+  solutionItems,
+  servicesCategories,
+  contactItems,
+}) => {
+  const [expandedSection, setExpandedSection] = useState(null);
+
+  const toggleSection = (section) =>
+    setExpandedSection(expandedSection === section ? null : section);
+
   const handleContactClick = (label) => {
     const link = CONTACT_LINKS[label];
     if (link && link !== "#") {
-      window.open(link, link.startsWith('http') ? '_blank' : '_self');
+      window.open(link, link.startsWith("http") ? "_blank" : "_self");
     }
   };
 
   return (
     <div
-      className={`absolute left-1/2 -translate-x-1/2 top-full mt-7 w-[260px] bg-white shadow-xl z-10 transition-all duration-300 ${
-        isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3 invisible"
+      className={`fixed top-0 right-0 h-full w-full bg-[#124EA9] z-50 transform transition-transform duration-300 ease-in-out md:hidden ${
+        isOpen ? "translate-x-0" : "translate-x-full"
       }`}
     >
-      <UpArrow style={{ left: "50%", transform: "translateX(-50%)" }} />
-      <ul className="py-2">
-        {items.map(({ label, icon: Icon }) => (
-          <li key={label}>
-            <button 
-              onClick={() => handleContactClick(label)}
-              className="w-full text-left px-4 py-2 text-[15px] text-black hover:bg-[#17b212] hover:text-white font-semibold flex items-center gap-2"
-            >
-              <Icon size={18} className="shrink-0" />
-              <span>{label}</span>
-            </button>
-            <hr className="border-t border-gray-200 my-1" />
-          </li>
-        ))}
-        <li className="flex justify-center gap-4 py-2">
-          {SOCIAL_LINKS.map(({ icon: Icon, href, label }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group bg-[#0F4EA9] hover:bg-[#17b212] rounded-full p-2 transition-colors flex items-center justify-center"
-              aria-label={label}
-            >
-              <Icon size={18} className="text-white" />
-            </a>
-          ))}
-        </li>
-      </ul>
+      {/* Close Button */}
+      <div className="flex justify-end p-4">
+        <button
+          onClick={onClose}
+          className="text-white text-3xl font-bold hover:text-[#17b212] transition-colors"
+          aria-label="Close menu"
+        >
+          ×
+        </button>
+      </div>
+
+      {/* Menu Sections */}
+      <nav className="flex flex-col h-[calc(100%-80px)] overflow-y-auto px-6">
+        <Section
+          id="company"
+          title="Company"
+          items={companyItems}
+          expandedSection={expandedSection}
+          toggleSection={toggleSection}
+        />
+        {/* 👇 scrollable dropdown for long list */}
+        <Section
+          id="solutions"
+          title="Our Solutions"
+          items={solutionItems}
+          expandedSection={expandedSection}
+          toggleSection={toggleSection}
+          scrollable
+        />
+        <Section
+          id="services"
+          title="Services"
+          items={servicesCategories}
+          expandedSection={expandedSection}
+          toggleSection={toggleSection}
+        />
+        <Section
+          id="contact"
+          title="Contact Us"
+          items={contactItems}
+          onItemClick={handleContactClick}
+          expandedSection={expandedSection}
+          toggleSection={toggleSection}
+        />
+      </nav>
     </div>
   );
 };
+
+// Export as named export for Header.jsx compatibility
+export const ContactDropdown = () => null;
