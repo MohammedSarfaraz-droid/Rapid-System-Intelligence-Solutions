@@ -25,18 +25,14 @@ const Section = ({
     <div className="border-b border-white/20">
       {/* Sticky Header */}
       <button
+        id={`accordion-button-${id}`}
+        aria-expanded={expandedSection === id}
+        aria-controls={`dropdown-${id}`}
         onClick={() => toggleSection(id)}
-        className={`w-full flex items-center justify-between py-4 text-white text-lg font-bold hover:text-[#17b212] transition-colors 
-        ${scrollable ? "sticky top-0 z-20 bg-[#124EA9]" : ""}`}
+        className="w-full flex items-center justify-between px-4 py-2 text-[15px] text-white hover:bg-[#17b212] hover:text-white font-semibold"
       >
         <span>{title}</span>
-        <motion.div
-          animate={{ rotate: expandedSection === id ? 180 : 0 }}
-          transition={{ duration: 0.3 }}
-          className="text-white text-base"
-        >
-          <FaChevronDown />
-        </motion.div>
+        <span className="ml-2">{expandedSection === id ? "-" : "+"}</span>
       </button>
 
       {/* Smooth Dropdown */}
@@ -56,16 +52,22 @@ const Section = ({
             }`}
           >
             <div className="pb-4 pl-4 space-y-2">
-              {items.map(({ label, title, icon: Icon }) => (
-                <button
-                  key={label || title}
-                  onClick={() => onItemClick?.(label || title)}
-                  className="w-full flex items-center gap-3 py-2 text-white text-base hover:text-[#17b212] transition-colors text-left"
-                >
-                  <Icon className="text-lg shrink-0" />
-                  <span>{label || title}</span>
-                </button>
-              ))}
+              {items.map((item) => {
+                const { label, title, icon: Icon, onClick } = item || {};
+                return (
+                  <li key={label || title}>
+                    <button
+                      onClick={onClick}
+                      className="w-full text-left px-4 py-2 text-[15px] text-white hover:bg-[#17b212] hover:text-white font-semibold flex items-center gap-2"
+                    >
+                      {Icon && (
+                        <Icon size={18} className="shrink-0 text-white" />
+                      )}
+                      <span>{label || title}</span>
+                    </button>
+                  </li>
+                );
+              })}
             </div>
           </motion.div>
         )}

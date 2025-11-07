@@ -24,9 +24,9 @@ export default function Hero() {
       variants={sectionVariants}
       initial="hidden"
       animate="visible"
-      className="relative flex-1 flex items-center min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)]"
+      className="relative w-full flex flex-col items-center justify-center min-h-[60vh] py-6 sm:py-8 md:py-8 lg:py-12 xl:py-16"
     >
-      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 w-full py-6 sm:py-8 md:py-4">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 w-full py-6 sm:py-8 md:py-8 lg:py-12 xl:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-8 items-center w-full">
           <HeroContent />
           

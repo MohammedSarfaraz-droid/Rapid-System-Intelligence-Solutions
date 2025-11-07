@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { SERVICE_OPTIONS, COUNTRY_CODES } from "@/constants/heroData";
 
 const formVariants = {
@@ -17,65 +17,23 @@ const formVariants = {
   },
 };
 
-const inputVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: (i) => ({
-    opacity: 1,
-    x: 0,
-    transition: {
-      delay: 0.5 + i * 0.1,
-      duration: 0.4,
-      ease: "easeOut",
-    },
-  }),
-};
-
-const FormInput = ({ type, placeholder, value, onChange, required, className = "", index }) => (
-  <motion.input
-    custom={index}
-    variants={inputVariants}
-    initial="hidden"
-    animate="visible"
-    type={type}
-    placeholder={placeholder}
-    value={value}
-    onChange={onChange}
-    className={`w-full px-3 py-2.5 text-sm sm:text-base border-b border-gray-300 focus:border-[#17b212] focus:outline-none transition-colors ${className}`}
-    required={required}
-  />
-);
-
-const FormSelect = ({ value, onChange, options, placeholder, required, index }) => (
-  <motion.div
-    custom={index}
-    variants={inputVariants}
-    initial="hidden"
-    animate="visible"
-    className="relative"
-  >
-    <select
-      value={value}
-      onChange={onChange}
-      className="w-full px-3 py-2.5 text-sm sm:text-base border-b border-gray-300 focus:border-[#17b212] focus:outline-none bg-white appearance-none pr-8"
-      required={required}
-    >
-      {placeholder && <option value="">{placeholder}</option>}
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
-    <svg
-      className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none fill-gray-700"
-      viewBox="0 0 20 20"
-    >
-      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-    </svg>
-  </motion.div>
-);
-
 export default function ContactForm({ formData, handleChange, handleSubmit }) {
+  const reducedMotion = useReducedMotion();
+
+  const inputVariants = reducedMotion
+    ? { hidden: { opacity: 1, y: 0 }, visible: { opacity: 1, y: 0, transition: { duration: 0 } } }
+    : {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: 0.4,
+            delay: 0.1,
+          },
+        },
+      };
+
   const serviceOptions = SERVICE_OPTIONS.map((service) => ({
     value: service.toLowerCase().replace(/\s+/g, "-"),
     label: service,
@@ -111,22 +69,32 @@ export default function ContactForm({ formData, handleChange, handleSubmit }) {
         onSubmit={handleSubmit}
         className="flex-1 overflow-y-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 space-y-2.5 sm:space-y-3 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
       >
-        <FormInput
+        <motion.input
+          custom={0}
+          variants={inputVariants}
+          whileInView="visible"
+          initial="hidden"
+          viewport={{ once: true }}
           type="text"
           placeholder="Full name"
           value={formData.name}
           onChange={(e) => handleChange("name", e.target.value)}
+          className={`w-full px-3 py-2.5 text-sm sm:text-base border-b border-gray-300 focus:border-[#17b212] focus:outline-none transition-colors`}
           required
-          index={0}
         />
 
-        <FormInput
+        <motion.input
+          custom={1}
+          variants={inputVariants}
+          whileInView="visible"
+          initial="hidden"
+          viewport={{ once: true }}
           type="email"
           placeholder="E-mail"
           value={formData.email}
           onChange={(e) => handleChange("email", e.target.value)}
+          className={`w-full px-3 py-2.5 text-sm sm:text-base border-b border-gray-300 focus:border-[#17b212] focus:outline-none transition-colors`}
           required
-          index={1}
         />
 
         <motion.div
@@ -157,14 +125,25 @@ export default function ContactForm({ formData, handleChange, handleSubmit }) {
           />
         </motion.div>
 
-        <FormSelect
+        <motion.select
           value={formData.enquiryFor}
           onChange={(e) => handleChange("enquiryFor", e.target.value)}
           options={serviceOptions}
           placeholder="Select a service..."
           required
-          index={3}
-        />
+          custom={3}
+          variants={inputVariants}
+          initial="hidden"
+          animate="visible"
+          className="w-full px-3 py-2.5 text-sm sm:text-base border-b border-gray-300 focus:border-[#17b212] focus:outline-none bg-white appearance-none pr-8"
+        >
+          <option value="">Select a service...</option>
+          {serviceOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </motion.select>
 
         <motion.textarea
           custom={4}

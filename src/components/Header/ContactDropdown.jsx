@@ -3,6 +3,8 @@
 import { FaLinkedinIn } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
 import { UpArrow } from "./DropdownComponents";
+import PropTypes from "prop-types";
+import React, { useEffect, useRef } from "react";
 
 const CONTACT_LINKS = {
   "Email Us": "mailto:admin@rsisglobal.com",
@@ -12,7 +14,41 @@ const CONTACT_LINKS = {
 };
 
 // Desktop Contact Dropdown Component
-export const ContactDropdown = ({ items, isOpen }) => {
+export const ContactDropdown = ({ items = [], isOpen, onClose, toggleButtonRef }) => {
+  const menuRef = useRef(null);
+
+  // Focus management and Escape key handling
+  useEffect(() => {
+    if (!isOpen) return;
+    // Focus the first focusable element in the menu
+    const menu = menuRef.current;
+    if (menu) {
+      // Try to focus the first button inside the menu
+      const firstButton = menu.querySelector('button, [tabindex]:not([tabindex="-1"])');
+      if (firstButton) {
+        firstButton.focus();
+      } else {
+        menu.focus();
+      }
+    }
+    // Escape key handler
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && onClose) {
+        onClose();
+        // Return focus to toggle button if available
+        if (toggleButtonRef && toggleButtonRef.current) {
+          toggleButtonRef.current.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose, toggleButtonRef]);
+
+  if (!Array.isArray(items) || items.length === 0) return null;
+
   const handleContactClick = (label) => {
     const link = CONTACT_LINKS[label];
     if (link && link !== "#") {
@@ -22,15 +58,18 @@ export const ContactDropdown = ({ items, isOpen }) => {
 
   return (
     <div
-      className={`absolute left-1/2 -translate-x-1/2 top-full mt-7 w-[260px] bg-white shadow-xl z-10 transition-all duration-300 ${
-        isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3 invisible"
-      }`}
+      ref={menuRef}
+      role="menu"
+      aria-hidden={!isOpen}
+      tabIndex={-1}
+      className={`absolute right-0 mt-2 w-64 rounded-lg shadow-lg bg-white ring-1 ring-black/5 z-50 transition-all duration-200 ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
     >
       <UpArrow style={{ left: "50%", transform: "translateX(-50%)" }} />
       <ul className="py-2">
-        {items.map(({ label, icon: Icon }) => (
+        {Array.isArray(items) && items.map(({ label, icon: Icon }) => (
           <li key={label}>
             <button
+              role="menuitem"
               onClick={() => handleContactClick(label)}
               className="w-full text-left px-4 py-2 text-[15px] text-black hover:bg-[#17b212] hover:text-white font-semibold flex items-center gap-2"
             >
@@ -63,4 +102,16 @@ export const ContactDropdown = ({ items, isOpen }) => {
       </ul>
     </div>
   );
+};
+
+ContactDropdown.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      icon: PropTypes.elementType.isRequired,
+    })
+  ),
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  toggleButtonRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
 };
