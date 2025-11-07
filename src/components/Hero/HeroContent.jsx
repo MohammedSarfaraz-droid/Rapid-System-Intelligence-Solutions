@@ -5,37 +5,39 @@ import AnimatedMarquee from "./AnimatedMarquee";
 
 const MARQUEE_WORDS = ["Ideas", "Technology", "Insights", "Results"];
 
-const containerVariants = useReducedMotion
-  ? {
-      hidden: { opacity: 1 },
-      visible: { opacity: 1, transition: { duration: 0, staggerChildren: 0 } },
-    }
-  : {
-      hidden: { opacity: 0 },
-      visible: { opacity: 1, transition: { duration: 0.5, staggerChildren: 0.15 } },
-    };
-
-const itemVariants = useReducedMotion
-  ? {
-      hidden: { opacity: 1, y: 0 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0 } },
-    }
-  : {
-      hidden: { opacity: 0, y: 20 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-    };
-
-const slideInVariants = useReducedMotion
-  ? {
-      hidden: { opacity: 1, x: 0 },
-      visible: { opacity: 1, x: 0, transition: { duration: 0 } },
-    }
-  : {
-      hidden: { opacity: 0, x: 40 },
-      visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
-    };
-
 export default function HeroContent() {
+  const shouldReduceMotion = useReducedMotion();
+
+  const containerVariants = shouldReduceMotion
+    ? {
+        hidden: { opacity: 1 },
+        visible: { opacity: 1, transition: { duration: 0, staggerChildren: 0 } },
+      }
+    : {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { duration: 0.5, staggerChildren: 0.15 } },
+      };
+
+  const itemVariants = shouldReduceMotion
+    ? {
+        hidden: { opacity: 1, y: 0 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0 } },
+      }
+    : {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+      };
+
+  const slideInVariants = shouldReduceMotion
+    ? {
+        hidden: { opacity: 1, x: 0 },
+        visible: { opacity: 1, x: 0, transition: { duration: 0 } },
+      }
+    : {
+        hidden: { opacity: 0, x: 20 },
+        visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+      };
+
   return (
     <motion.div
       className="lg:col-span-7 flex flex-col justify-center space-y-4 sm:space-y-5 md:space-y-6 px-2 sm:px-0"
