@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaLinkedinIn, FaFacebookF } from "react-icons/fa";
+import { RiTwitterXFill } from "react-icons/ri";
 
 const CONTACT_LINKS = {
   "Email Us": "mailto:admin@rsisglobal.com",
@@ -20,6 +21,7 @@ const Section = ({
   expandedSection,
   toggleSection,
   scrollable = false,
+  showSocialLinks = false,
 }) => {
   return (
     <div className="border-b border-white/20">
@@ -58,16 +60,50 @@ const Section = ({
                   <li key={label || title}>
                     <button
                       onClick={onClick}
-                      className="w-full text-left px-4 py-2 text-[15px] text-white hover:bg-[#17b212] hover:text-white font-semibold flex items-center gap-2"
+                      className="w-full text-left px-4 py-2 text-[15px] text-white hover:bg-[#17b212] hover:text-white font-semibold flex items-center gap-3"
                     >
                       {Icon && (
-                        <Icon size={18} className="shrink-0 text-white" />
+                        <span className="bg-white/20 rounded-full p-2 flex items-center justify-center">
+                          <Icon size={18} className="shrink-0 text-white" />
+                        </span>
                       )}
                       <span>{label || title}</span>
                     </button>
                   </li>
                 );
               })}
+              {/* Social Media Links */}
+              {showSocialLinks && (
+                <li className="flex justify-center gap-4 py-2 mt-4">
+                  <a
+                    href="https://x.com/RsisGlobal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group bg-white/20 hover:bg-[#17b212] rounded-full p-2 transition-colors flex items-center justify-center"
+                    aria-label="Twitter"
+                  >
+                    <RiTwitterXFill size={18} className="text-white" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/rapid-system-intelligence-solutions-2b889a380"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group bg-white/20 hover:bg-[#17b212] rounded-full p-2 transition-colors flex items-center justify-center"
+                    aria-label="LinkedIn"
+                  >
+                    <FaLinkedinIn size={18} className="text-white" />
+                  </a>
+                  <a
+                    href="https://facebook.com/RsisGlobal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group bg-white/20 hover:bg-[#17b212] rounded-full p-2 transition-colors flex items-center justify-center"
+                    aria-label="Facebook"
+                  >
+                    <FaFacebookF size={18} className="text-white" />
+                  </a>
+                </li>
+              )}
             </div>
           </motion.div>
         )}
@@ -146,6 +182,7 @@ export const MobileMenu = ({
           onItemClick={handleContactClick}
           expandedSection={expandedSection}
           toggleSection={toggleSection}
+          showSocialLinks={true}
         />
       </nav>
     </div>

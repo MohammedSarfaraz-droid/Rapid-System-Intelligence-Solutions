@@ -1,6 +1,6 @@
 "use client";
 
-import { FaLinkedinIn } from "react-icons/fa";
+import { FaLinkedinIn, FaFacebookF } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
 import { UpArrow } from "./DropdownComponents";
 import PropTypes from "prop-types";
@@ -62,7 +62,9 @@ export const ContactDropdown = ({ items = [], isOpen, onClose, toggleButtonRef }
       role="menu"
       aria-hidden={!isOpen}
       tabIndex={-1}
-      className={`absolute right-0 mt-2 w-64 rounded-lg shadow-lg bg-white ring-1 ring-black/5 z-50 transition-all duration-200 ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
+      className={`absolute left-1/2 -translate-x-1/2 top-full mt-7 w-64 shadow-xl bg-white z-10 transition-all duration-300 ${
+        isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3 invisible"
+      }`}
     >
       <UpArrow style={{ left: "50%", transform: "translateX(-50%)" }} />
       <ul className="py-2">
@@ -98,6 +100,15 @@ export const ContactDropdown = ({ items = [], isOpen, onClose, toggleButtonRef }
           >
             <FaLinkedinIn size={18} className="text-white" />
           </a>
+          <a
+            href="https://facebook.com/RsisGlobal"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group bg-[#0F4EA9] hover:bg-[#17b212] rounded-full p-2 transition-colors flex items-center justify-center"
+            aria-label="Facebook"
+          >
+            <FaFacebookF size={18} className="text-white" />
+          </a>
         </li>
       </ul>
     </div>
@@ -113,5 +124,5 @@ ContactDropdown.propTypes = {
   ),
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
-  toggleButtonRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  toggleButtonRef: PropTypes.object,
 };
