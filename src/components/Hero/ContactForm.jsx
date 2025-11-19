@@ -1,80 +1,36 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { SERVICE_OPTIONS, COUNTRY_CODES } from "@/constants/heroData";
 
-const formVariants = {
-  hidden: { opacity: 0, y: 50, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-      delay: 0.3,
-    },
-  },
-};
-
 export default function ContactForm({ formData, handleChange, handleSubmit }) {
-  const reducedMotion = useReducedMotion();
-
-  const inputVariants = reducedMotion
-    ? { hidden: { opacity: 1, y: 0 }, visible: { opacity: 1, y: 0, transition: { duration: 0 } } }
-    : {
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: {
-            duration: 0.4,
-            delay: 0.1,
-          },
-        },
-      };
-
   const serviceOptions = SERVICE_OPTIONS.map((service) => ({
     value: service.toLowerCase().replace(/\s+/g, "-"),
     label: service,
   }));
 
   return (
-    <motion.div
-      variants={formVariants}
-      initial="hidden"
-      animate="visible"
+    <div
       className="bg-white rounded-lg shadow-2xl w-full max-w-md mx-auto max-h-[85vh] flex flex-col"
     >
       <div className="flex-shrink-0">
-        <motion.h3
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
+        <h3
           className="text-base sm:text-lg md:text-xl font-bold text-center pt-3 sm:pt-4 pb-2 text-gray-800"
         >
           Let&apos;s Talk
-        </motion.h3>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
+        </h3>
+        <p
           className="text-xs sm:text-sm md:text-base text-white py-2 sm:py-2.5 font-bold text-center bg-[#104ea9]"
         >
           Get a Call Back Shortly!
-        </motion.p>
+        </p>
       </div>
 
       <form
         onSubmit={handleSubmit}
         className="flex-1 overflow-y-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 space-y-2.5 sm:space-y-3 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
       >
-        <motion.input
-          custom={0}
-          variants={inputVariants}
-          whileInView="visible"
-          initial="hidden"
-          viewport={{ once: true }}
+        <input
           type="text"
           placeholder="Full name"
           value={formData.name}
@@ -83,12 +39,7 @@ export default function ContactForm({ formData, handleChange, handleSubmit }) {
           required
         />
 
-        <motion.input
-          custom={1}
-          variants={inputVariants}
-          whileInView="visible"
-          initial="hidden"
-          viewport={{ once: true }}
+        <input
           type="email"
           placeholder="E-mail"
           value={formData.email}
@@ -97,11 +48,7 @@ export default function ContactForm({ formData, handleChange, handleSubmit }) {
           required
         />
 
-        <motion.div
-          custom={2}
-          variants={inputVariants}
-          initial="hidden"
-          animate="visible"
+        <div
           className="flex gap-2"
         >
           <select
@@ -123,18 +70,14 @@ export default function ContactForm({ formData, handleChange, handleSubmit }) {
             className="flex-1 px-3 py-2.5 text-sm sm:text-base border-b border-gray-300 focus:border-[#17b212] focus:outline-none transition-colors"
             required
           />
-        </motion.div>
+        </div>
 
-        <motion.select
+        <select
           value={formData.enquiryFor}
           onChange={(e) => handleChange("enquiryFor", e.target.value)}
           options={serviceOptions}
           placeholder="Select a service..."
           required
-          custom={3}
-          variants={inputVariants}
-          initial="hidden"
-          animate="visible"
           className="w-full px-3 py-2.5 text-sm sm:text-base border-b border-gray-300 focus:border-[#17b212] focus:outline-none bg-white appearance-none pr-8"
         >
           <option value="">Select a service...</option>
@@ -143,13 +86,9 @@ export default function ContactForm({ formData, handleChange, handleSubmit }) {
               {option.label}
             </option>
           ))}
-        </motion.select>
+        </select>
 
-        <motion.textarea
-          custom={4}
-          variants={inputVariants}
-          initial="hidden"
-          animate="visible"
+        <textarea
           placeholder="Your enquiry"
           rows={2}
           value={formData.enquiry}
@@ -157,10 +96,7 @@ export default function ContactForm({ formData, handleChange, handleSubmit }) {
           className="w-full px-3 py-2.5 border-b border-gray-300 text-sm sm:text-base focus:border-[#17b212] focus:outline-none transition-colors resize-none"
         />
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.5 }}
+        <p
           className="text-[9px] sm:text-[10px] md:text-[11px] text-gray-600 text-center pt-1"
         >
           We will handle your personal data in compliance with our{" "}
@@ -172,12 +108,9 @@ export default function ContactForm({ formData, handleChange, handleSubmit }) {
           >
             Privacy Policy
           </a>
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.5 }}
+        <div
           className="flex justify-center pt-1 sm:pt-2 pb-1 sm:pb-2"
         >
           <motion.button
@@ -188,8 +121,8 @@ export default function ContactForm({ formData, handleChange, handleSubmit }) {
           >
             Get a Free Quote
           </motion.button>
-        </motion.div>
+        </div>
       </form>
-    </motion.div>
+    </div>
   );
 }

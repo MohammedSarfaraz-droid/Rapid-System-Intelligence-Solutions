@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronDown, FaLinkedinIn, FaFacebookF } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
 
@@ -37,22 +36,13 @@ const Section = ({
         <span className="ml-2">{expandedSection === id ? "-" : "+"}</span>
       </button>
 
-      {/* Smooth Dropdown */}
-      <AnimatePresence initial={false}>
-        {expandedSection === id && (
-          <motion.div
-            key={id}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{
-              duration: 0.35,
-              ease: [0.4, 0, 0.2, 1],
-            }}
-            className={`overflow-hidden ${
-              scrollable ? "max-h-[60vh] overflow-y-auto" : ""
-            }`}
-          >
+      {/* Dropdown Content */}
+      {expandedSection === id && (
+        <div
+          className={`overflow-hidden ${
+            scrollable ? "max-h-[60vh] overflow-y-auto" : ""
+          }`}
+        >
             <div className="pb-4 pl-4 space-y-2">
               {items.map((item) => {
                 const { label, title, icon: Icon, onClick } = item || {};
@@ -105,9 +95,8 @@ const Section = ({
                 </li>
               )}
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </div>
   );
 };
