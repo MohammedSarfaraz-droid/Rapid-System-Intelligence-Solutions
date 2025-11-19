@@ -1,29 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useForm } from "@/hooks/useForm";
 import HeroContent from "./Hero/HeroContent";
 import ContactForm from "./Hero/ContactForm";
-
-const sectionVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  },
-};
 
 export default function Hero() {
   const { formData, handleChange, handleSubmit } = useForm();
 
   return (
-    <motion.section
-      variants={sectionVariants}
-      initial="hidden"
-      animate="visible"
+    <section
       className="relative w-full flex flex-col items-center justify-center min-h-[60vh] py-6 sm:py-8 md:py-8 "
     >
       <div className="container mx-auto px-3 sm:px-4 md:px-6  relative z-10 w-full py-6 sm:py-8 md:py-8 lg:py-12 ">
@@ -39,6 +24,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }
