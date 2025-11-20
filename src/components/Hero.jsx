@@ -9,13 +9,14 @@ export default function Hero() {
 
   return (
     <section
-      className="relative w-full flex flex-col items-center justify-center min-h-[60vh] py-6 sm:py-8 md:py-8 "
+      className="relative w-full flex flex-col items-center justify-center min-h-[100vh] md:min-h-screen pt-20 pb-6 bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url('/Images/RSIS-Banner.png')" }}
     >
-      <div className="container mx-auto px-3 sm:px-4 md:px-6  relative z-10 w-full py-6 sm:py-8 md:py-8 lg:py-12 ">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-8 items-center w-full">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 w-full py-6 md:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center w-full">
           <HeroContent />
           
-          <div className="lg:col-span-5 flex items-center w-full">
+          <div className="md:col-span-5 flex items-center w-full">
             <ContactForm
               formData={formData}
               handleChange={handleChange}

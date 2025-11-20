@@ -1,17 +1,13 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import HeroPanel from "@/components/HeroPanel";
 
 export default function Home() {
   return (
-    <div
-      className="relative bg-cover bg-center bg-no-repeat min-h-screen overflow-x-hidden"
-      style={{ backgroundImage: "url('/Images/RSIS-Banner.png')" }}
-    >
-      
-      <div className="relative z-10 min-h-screen flex flex-col overflow-x-hidden">
-        <Header />
-        <Hero />
-      </div>
+    <div className="min-h-screen">
+      <Header />
+      <Hero />
+      <HeroPanel />
     </div>
   );
 }

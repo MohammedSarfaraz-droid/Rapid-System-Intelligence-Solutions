@@ -30,9 +30,10 @@ export const UpArrow = ({ style }) => (
   </div>
 );
 
-export const DropdownButton = ({ label, isOpen, onClick, children }) => (
+export const DropdownButton = ({ label, isOpen, onClick, children, buttonRef }) => (
   <div className="relative">
     <button
+      ref={buttonRef}
       className="text-[16px] font-bold flex items-center gap-1 hover:text-[#1ab213]"
       onClick={onClick}
     >
@@ -68,11 +69,11 @@ export const SimpleDropdown = ({ items, isOpen, arrowPosition }) => (
 
 export const MegaMenu = ({ items, isOpen, arrowLeft }) => (
   <div
-    className={`fixed left-0 right-0 top-[64px] sm:top-[80px] bg-white shadow-xl z-10 transition-all duration-300 ${
+    className={`fixed left-0 right-0 top-[64px] md:top-[72px] bg-white shadow-xl z-10 transition-all duration-300 ${
       isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3 invisible"
     }`}
   >
-    <UpArrow style={{ left: arrowLeft }} />
+    {arrowLeft && <UpArrow style={{ left: `${arrowLeft}px` }} />}
     <div className="mx-auto max-w-7xl px-6 py-6">
       <ul className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-2">
         {items.map(({ label, icon: Icon }) => (
@@ -91,11 +92,11 @@ export const MegaMenu = ({ items, isOpen, arrowLeft }) => (
 
 export const ServicesMegaMenu = ({ categories, isOpen, arrowLeft }) => (
   <div
-    className={`fixed left-0 right-0 top-[64px] sm:top-[80px] bg-white shadow-xl z-10 transition-all duration-300 ${
+    className={`fixed left-0 right-0 top-[64px] md:top-[72px] bg-white shadow-xl z-10 transition-all duration-300 ${
       isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3 invisible"
     }`}
   >
-    <UpArrow style={{ left: arrowLeft }} />
+    {arrowLeft && <UpArrow style={{ left: `${arrowLeft}px` }} />}
     <div className="mx-auto max-w-7xl px-6 py-8">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-x-8 gap-y-4 px-4">
         {categories.map(({ title, icon: Icon }) => (

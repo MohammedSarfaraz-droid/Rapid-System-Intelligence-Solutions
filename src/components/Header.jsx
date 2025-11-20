@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useHeaderState } from "@/hooks/useHeaderState";
 import { COMPANY_ITEMS, CONTACT_ITEMS, SOLUTION_ITEMS, SERVICES_CATEGORIES } from "@/constants/headerData";
 import { DropdownButton, SimpleDropdown, MegaMenu, ServicesMegaMenu } from "./Header/DropdownComponents";
@@ -11,14 +11,43 @@ import { MobileMenu } from "./Header/MobileMenu";
 export default function Header() {
   const { openMenu, scrolled, navRef, toggleMenu } = useHeaderState();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [arrowPositions, setArrowPositions] = useState({});
+  
+  const companyRef = useRef(null);
+  const solutionsRef = useRef(null);
+  const servicesRef = useRef(null);
+  const contactRef = useRef(null);
 
-  const headerClasses = `text-white sticky top-0 w-full z-50 transition-colors duration-500 ${
+  useEffect(() => {
+    const updateArrowPositions = () => {
+      const positions = {};
+      
+      if (solutionsRef.current) {
+        const rect = solutionsRef.current.getBoundingClientRect();
+        positions.solutions = rect.left + rect.width / 2;
+      }
+      
+      if (servicesRef.current) {
+        const rect = servicesRef.current.getBoundingClientRect();
+        positions.services = rect.left + rect.width / 2;
+      }
+      
+      setArrowPositions(positions);
+    };
+
+    updateArrowPositions();
+    window.addEventListener('resize', updateArrowPositions);
+    
+    return () => window.removeEventListener('resize', updateArrowPositions);
+  }, []);
+
+  const headerClasses = `text-white fixed top-0 w-full z-50 transition-colors duration-500 ${
     scrolled ? "bg-[#0F4EA9] shadow-lg" : "bg-transparent"
   }`;
 
-  const containerClasses = `mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 h-16 sm:h-20 py-4 transition-all duration-300`;
+  const containerClasses = `mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6 h-16 md:h-18 py-4 transition-all duration-300`;
 
-  const logoClasses = "h-10 w-auto sm:h-12";
+  const logoClasses = "h-10 w-auto md:h-11";
 
   return (
     <header className={headerClasses}>
@@ -38,6 +67,7 @@ export default function Header() {
             label="Company"
             isOpen={openMenu === "company"}
             onClick={() => toggleMenu("company")}
+            buttonRef={companyRef}
           >
             <SimpleDropdown items={COMPANY_ITEMS} isOpen={openMenu === "company"} />
           </DropdownButton>
@@ -46,11 +76,12 @@ export default function Header() {
             label="Our Solutions"
             isOpen={openMenu === "solutions"}
             onClick={() => toggleMenu("solutions")}
+            buttonRef={solutionsRef}
           >
             <MegaMenu
               items={SOLUTION_ITEMS}
               isOpen={openMenu === "solutions"}
-              arrowLeft="calc(50% + 280px)"
+              arrowLeft={arrowPositions.solutions}
             />
           </DropdownButton>
 
@@ -58,11 +89,12 @@ export default function Header() {
             label="Services"
             isOpen={openMenu === "services"}
             onClick={() => toggleMenu("services")}
+            buttonRef={servicesRef}
           >
             <ServicesMegaMenu
               categories={SERVICES_CATEGORIES}
               isOpen={openMenu === "services"}
-              arrowLeft="calc(50% + 430px)"
+              arrowLeft={arrowPositions.services}
             />
           </DropdownButton>
 
@@ -70,6 +102,7 @@ export default function Header() {
             label="Contact Us"
             isOpen={openMenu === "contact"}
             onClick={() => toggleMenu("contact")}
+            buttonRef={contactRef}
           >
             <ContactDropdown items={CONTACT_ITEMS} isOpen={openMenu === "contact"} />
           </DropdownButton>
