@@ -9,20 +9,20 @@ export const ServiceDescriptionContent = ({ service, isRightSide, isExiting }) =
     exit={{ opacity: 0 }}
     transition={{ duration: ANIMATION_CONFIG.duration, ease: ANIMATION_CONFIG.easing }}
   >
-    <div className="max-w-2xl ml-auto text-right space-y-6">
+    <div className="max-w-2xl ml-auto font-[400] text-right space-y-6">
       <h2 
-        className="text-[#21201F] leading-none"
-        style={{ fontSize: 'clamp(2rem, 3.4vw, 3.4rem)' }}
+        className="text-[#0F4EA9] leading-none"
+        style={{ fontSize: 'clamp(2rem, 3.4vw, 2.3rem)' }}
       >
         {service.title}
       </h2>
       
-      <strong className="block text-[#d4af37] text-xl md:text-2xl font-bold leading-tight">
+      <strong className="block text-[#17b212] text-xl md:text-2xl font-[600] leading-tight">
         {service.subtitle}
       </strong>
       
       <p 
-        className="text-[#21201F] font-light leading-relaxed"
+        className="text-gray-700 font-light leading-relaxed"
         style={{ fontFamily: '"Hind", sans-serif' }}
       >
         {service.description}

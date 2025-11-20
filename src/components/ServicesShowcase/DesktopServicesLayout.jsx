@@ -3,7 +3,7 @@ import { StackedServicePanel } from './StackedServicePanel';
 import { ExpandedServicePanel } from './ExpandedServicePanel';
 
 export const DesktopServicesLayout = ({ services, activeServiceId, onServiceClick, isExpandingFromRight }) => (
-  <section className="w-full h-screen bg-[#f3f3f3] overflow-hidden">
+  <section className="w-full h-screen bg-white overflow-hidden">
     <div className="h-full flex relative">
       <AnimatePresence mode="popLayout">
         {services.map((service) => (
