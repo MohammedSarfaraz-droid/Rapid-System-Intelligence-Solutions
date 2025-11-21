@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 import { useHeaderState } from "@/hooks/useHeaderState";
 import { COMPANY_ITEMS, CONTACT_ITEMS, SOLUTION_ITEMS, SERVICES_CATEGORIES } from "@/constants/headerData";
 import { DropdownButton, SimpleDropdown, MegaMenu, ServicesMegaMenu } from "./Header/DropdownComponents";
@@ -42,7 +43,7 @@ export default function Header() {
   }, []);
 
   const headerClasses = `text-white fixed top-0 w-full z-50 transition-colors duration-500 ${
-    scrolled ? "bg-[#0F4EA9] shadow-lg" : "bg-transparent"
+    scrolled ? "bg-[var(--brand-blue)] shadow-lg" : "bg-transparent"
   }`;
 
   const containerClasses = `mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6 h-16 md:h-18 py-4 transition-all duration-300`;
@@ -50,7 +51,12 @@ export default function Header() {
   const logoClasses = "h-10 w-auto md:h-11";
 
   return (
-    <header className={headerClasses}>
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={headerClasses}
+    >
       <div className={containerClasses}>
         <Image
           src="/Images/inzone_logo__updated_gif.gif"
@@ -67,6 +73,8 @@ export default function Header() {
             label="Company"
             isOpen={openMenu === "company"}
             onClick={() => toggleMenu("company")}
+            onMouseEnter={() => toggleMenu("company")}
+            onMouseLeave={() => toggleMenu(null)}
             buttonRef={companyRef}
           >
             <SimpleDropdown items={COMPANY_ITEMS} isOpen={openMenu === "company"} />
@@ -76,6 +84,8 @@ export default function Header() {
             label="Our Solutions"
             isOpen={openMenu === "solutions"}
             onClick={() => toggleMenu("solutions")}
+            onMouseEnter={() => toggleMenu("solutions")}
+            onMouseLeave={() => toggleMenu(null)}
             buttonRef={solutionsRef}
           >
             <MegaMenu
@@ -89,6 +99,8 @@ export default function Header() {
             label="Services"
             isOpen={openMenu === "services"}
             onClick={() => toggleMenu("services")}
+            onMouseEnter={() => toggleMenu("services")}
+            onMouseLeave={() => toggleMenu(null)}
             buttonRef={servicesRef}
           >
             <ServicesMegaMenu
@@ -102,6 +114,8 @@ export default function Header() {
             label="Contact Us"
             isOpen={openMenu === "contact"}
             onClick={() => toggleMenu("contact")}
+            onMouseEnter={() => toggleMenu("contact")}
+            onMouseLeave={() => toggleMenu(null)}
             buttonRef={contactRef}
           >
             <ContactDropdown items={CONTACT_ITEMS} isOpen={openMenu === "contact"} />
@@ -129,6 +143,6 @@ export default function Header() {
         servicesCategories={SERVICES_CATEGORIES}
         contactItems={CONTACT_ITEMS}
       />
-    </header>
+    </motion.header>
   );
 }

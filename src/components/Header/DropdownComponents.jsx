@@ -30,11 +30,19 @@ export const UpArrow = ({ style }) => (
   </div>
 );
 
-export const DropdownButton = ({ label, isOpen, onClick, children, buttonRef }) => (
-  <div className="relative">
+export const DropdownButton = ({
+  label,
+  isOpen,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+  children,
+  buttonRef,
+}) => (
+  <div className="relative" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
     <button
       ref={buttonRef}
-      className="text-[16px] font-bold flex items-center gap-1 hover:text-[#1ab213]"
+      className="text-[16px] font-bold flex items-center gap-1 hover:text-[var(--brand-gold)]"
       onClick={onClick}
     >
       {label}
@@ -56,7 +64,7 @@ export const SimpleDropdown = ({ items, isOpen, arrowPosition }) => (
     <ul className="py-2">
       {items.map(({ label, icon: Icon }) => (
         <li key={label}>
-          <button className="w-full text-left px-4 py-2 text-[15px] text-black hover:bg-[#17b212] hover:text-white font-semibold flex items-center gap-2">
+          <button className="w-full text-left px-4 py-2 text-[15px] text-black hover:bg-[var(--brand-gold)] hover:text-white font-semibold flex items-center gap-2">
             <Icon size={18} className="shrink-0" />
             <span>{label}</span>
           </button>
@@ -78,7 +86,7 @@ export const MegaMenu = ({ items, isOpen, arrowLeft }) => (
       <ul className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-2">
         {items.map(({ label, icon: Icon }) => (
           <li key={label}>
-            <button className="w-full text-left px-4 py-3 text-[14px] text-black hover:bg-[#17b212] hover:text-white font-semibold rounded flex items-start gap-3 transition-colors">
+            <button className="w-full text-left px-4 py-3 text-[14px] text-black hover:bg-[var(--brand-gold)] hover:text-white font-semibold rounded flex items-start gap-3 transition-colors">
               <Icon size={18} className="shrink-0 mt-0.5" />
               <span className="leading-tight">{label}</span>
             </button>
@@ -101,7 +109,7 @@ export const ServicesMegaMenu = ({ categories, isOpen, arrowLeft }) => (
       <div className="grid grid-cols-1 md:grid-cols-4 gap-x-8 gap-y-4 px-4">
         {categories.map(({ title, icon: Icon }) => (
           <div key={title}>
-            <button className="flex items-center gap-3 py-3 px-4 text-black font-semibold text-[15px] w-full text-left hover:bg-[#17b212] hover:text-white transition-colors rounded mb-0">
+            <button className="flex items-center gap-3 py-3 px-4 text-black font-semibold text-[15px] w-full text-left hover:bg-[var(--brand-gold)] hover:text-white transition-colors rounded mb-0">
               <Icon size={20} className="shrink-0" />
               {title}
             </button>

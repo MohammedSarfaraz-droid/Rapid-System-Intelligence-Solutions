@@ -2,8 +2,26 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaChevronDown, FaLinkedinIn, FaFacebookF } from "react-icons/fa";
-import { RiTwitterXFill } from "react-icons/ri";
+import { ChevronDown } from "lucide-react";
+
+// Social Icons as Components
+const XIcon = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} height="1em" width="1em">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
+const LinkedInIcon = ({ className }) => (
+  <svg viewBox="0 0 448 512" fill="currentColor" className={className} height="1em" width="1em">
+    <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z" />
+  </svg>
+);
+
+const FacebookIcon = ({ className }) => (
+  <svg viewBox="0 0 320 512" fill="currentColor" className={className} height="1em" width="1em">
+    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z" />
+  </svg>
+);
 
 const CONTACT_LINKS = {
   "Email Us": "mailto:admin@rsisglobal.com",
@@ -31,7 +49,7 @@ const Section = ({
         aria-expanded={expandedSection === id}
         aria-controls={`dropdown-${id}`}
         onClick={() => toggleSection(id)}
-        className="w-full flex items-center justify-between px-4 py-2 text-[15px] text-white hover:bg-[#17b212] hover:text-white font-semibold"
+          className="w-full flex items-center justify-between px-4 py-2 text-[15px] text-white hover:bg-[var(--brand-gold)] hover:text-white font-semibold"
       >
         <span>{title}</span>
         <span className="ml-2">{expandedSection === id ? "-" : "+"}</span>
@@ -60,7 +78,7 @@ const Section = ({
                   <li key={label || title}>
                     <button
                       onClick={onClick}
-                      className="w-full text-left px-4 py-2 text-[15px] text-white hover:bg-[#17b212] hover:text-white font-semibold flex items-center gap-3"
+                      className="w-full text-left px-4 py-2 text-[15px] text-white hover:bg-[var(--brand-gold)] hover:text-white font-semibold flex items-center gap-3"
                     >
                       {Icon && (
                         <span className="bg-white/20 rounded-full p-2 flex items-center justify-center">
@@ -79,28 +97,28 @@ const Section = ({
                     href="https://x.com/RsisGlobal"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group bg-white/20 hover:bg-[#17b212] rounded-full p-2 transition-colors flex items-center justify-center"
+                    className="group bg-white/20 hover:bg-[var(--brand-gold)] rounded-full p-2 transition-colors flex items-center justify-center"
                     aria-label="Twitter"
                   >
-                    <RiTwitterXFill size={18} className="text-white" />
+                    <XIcon className="text-white w-[18px] h-[18px]" />
                   </a>
                   <a
                     href="https://www.linkedin.com/in/rapid-system-intelligence-solutions-2b889a380"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group bg-white/20 hover:bg-[#17b212] rounded-full p-2 transition-colors flex items-center justify-center"
+                    className="group bg-white/20 hover:bg-[var(--brand-gold)] rounded-full p-2 transition-colors flex items-center justify-center"
                     aria-label="LinkedIn"
                   >
-                    <FaLinkedinIn size={18} className="text-white" />
+                    <LinkedInIcon className="text-white w-[18px] h-[18px]" />
                   </a>
                   <a
                     href="https://facebook.com/RsisGlobal"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group bg-white/20 hover:bg-[#17b212] rounded-full p-2 transition-colors flex items-center justify-center"
+                    className="group bg-white/20 hover:bg-[var(--brand-gold)] rounded-full p-2 transition-colors flex items-center justify-center"
                     aria-label="Facebook"
                   >
-                    <FaFacebookF size={18} className="text-white" />
+                    <FacebookIcon className="text-white w-[18px] h-[18px]" />
                   </a>
                 </li>
               )}
@@ -143,7 +161,7 @@ export const MobileMenu = ({
       <div className="flex justify-end p-4">
         <button
           onClick={onClose}
-          className="text-white text-3xl font-bold hover:text-[#17b212] transition-colors"
+          className="text-white text-3xl font-bold hover:text-[var(--brand-gold)] transition-colors"
           aria-label="Close menu"
         >
           ×

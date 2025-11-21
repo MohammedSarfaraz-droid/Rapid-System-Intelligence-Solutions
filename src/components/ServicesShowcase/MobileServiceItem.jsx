@@ -1,14 +1,23 @@
 import { motion } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 
-export const MobileServiceItem = ({ service, onClick }) => (
-  <motion.button
+export const MobileServiceItem = ({ service, onClick, isOpen }) => (
+  <button
     onClick={onClick}
-    className="w-full bg-[#0F4EA9] border-b border-white/20 py-6 px-6 text-left hover:bg-[#1a5ec4] transition-colors"
-    whileHover={{ backgroundColor: '#1a5ec4' }}
+    className={`w-full p-5 flex items-center justify-between transition-all duration-300 ${
+      isOpen ? 'bg-[var(--brand-blue)]' : 'bg-transparent hover:bg-white/5'
+    }`}
   >
-    <div className="flex items-center justify-between">
-      <h3 className="text-white text-xl font-bold">{service.title}</h3>
-      <span className="text-[#17b212] text-2xl font-bold">{service.letter}</span>
+    <div className="flex items-center gap-4 text-left">
+      <span className={`text-lg font-medium leading-tight ${isOpen ? 'text-white' : 'text-white/90'}`}>
+        {service.title}
+      </span>
     </div>
-  </motion.button>
+    <motion.div
+      animate={{ rotate: isOpen ? 180 : 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <ChevronDown className={`w-5 h-5 ${isOpen ? 'text-[var(--brand-gold)]' : 'text-white/50'}`} />
+    </motion.div>
+  </button>
 );

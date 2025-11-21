@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { SERVICES_DATA, ANIMATION_CONFIG } from './ServicesShowcase/constants';
 import { MobileServicesLayout } from './ServicesShowcase/MobileServicesLayout';
 import { DesktopServicesLayout } from './ServicesShowcase/DesktopServicesLayout';
@@ -34,19 +35,29 @@ export default function ServicesShowcase() {
     }, ANIMATION_CONFIG.transitionDelay);
   };
 
-  return isMobile ? (
-    <MobileServicesLayout 
-      services={SERVICES_DATA}
-      activeServiceId={activeServiceId}
-      onServiceClick={handleServiceClick}
-    />
-  ) : (
-    <DesktopServicesLayout 
-      services={SERVICES_DATA}
-      activeServiceId={activeServiceId}
-      onServiceClick={handleServiceClick}
-      isExpandingFromRight={isExpandingFromRight}
-    />
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8 }}
+      className="w-full"
+    >
+      {isMobile ? (
+        <MobileServicesLayout 
+          services={SERVICES_DATA}
+          activeServiceId={activeServiceId}
+          onServiceClick={handleServiceClick}
+        />
+      ) : (
+        <DesktopServicesLayout 
+          services={SERVICES_DATA}
+          activeServiceId={activeServiceId}
+          onServiceClick={handleServiceClick}
+          isExpandingFromRight={isExpandingFromRight}
+        />
+      )}
+    </motion.div>
   );
 }
 

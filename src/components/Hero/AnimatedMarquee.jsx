@@ -10,7 +10,7 @@ const AnimatedMarquee = ({ words = ["Ideas", "Technology", "Insights", "Results"
         h-12 sm:h-14 md:h-16 lg:h-[4.5rem] xl:h-20 
         w-56 sm:w-64 md:w-72 lg:w-80 
         backdrop-blur-sm inline-block 
-        bg-[#17b212] rounded-xl
+        bg-[#cda72c] rounded-xl
       "
     >
       {/* Mobile */}

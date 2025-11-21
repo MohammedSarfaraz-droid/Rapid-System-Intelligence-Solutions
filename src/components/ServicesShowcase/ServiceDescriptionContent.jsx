@@ -12,12 +12,12 @@ export const ServiceDescriptionContent = ({ service, isRightSide, isExiting }) =
     <div className="max-w-2xl ml-auto font-[400] text-right space-y-6">
       <h2 
         className="text-[#0F4EA9] leading-none"
-        style={{ fontSize: 'clamp(2rem, 3.4vw, 2.3rem)' }}
+        style={{ fontSize: 'clamp(2rem, 3.4vw, 3.4rem)' }}
       >
         {service.title}
       </h2>
       
-      <strong className="block text-[#17b212] text-xl md:text-2xl font-[600] leading-tight">
+      <strong className="block text-[#cda72c] text-xl md:text-2xl font-bold leading-tight">
         {service.subtitle}
       </strong>
       
