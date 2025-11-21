@@ -4,6 +4,7 @@ import { ChevronDown } from 'lucide-react';
 export const MobileServiceItem = ({ service, onClick, isOpen }) => (
   <button
     onClick={onClick}
+    aria-expanded={isOpen}
     className={`w-full p-5 flex items-center justify-between transition-all duration-300 ${
       isOpen ? 'bg-[var(--brand-blue)]' : 'bg-transparent hover:bg-white/5'
     }`}

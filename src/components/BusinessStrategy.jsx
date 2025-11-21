@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react';
 const strategies = [
   {
     title: "Small & Medium Businesses Startups",
-    description: "From tech startups to Small & Medium Businesses, We help many enterprises and small and medium businesses save time and grow their businesses. We trained an organization’s employees, both international and local, in different batches around the clock.",
+    description: "From tech startups to Small & Medium Businesses, We help many enterprises and small and medium businesses save time and grow their businesses. We train an organization’s employees, both international and local, in different batches around the clock.",
     image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1000&auto=format&fit=crop", // Placeholder: Meeting/Startup
     link: "#"
   },

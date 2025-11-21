@@ -69,57 +69,69 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-6" ref={navRef}>
-          <DropdownButton
-            label="Company"
-            isOpen={openMenu === "company"}
-            onClick={() => toggleMenu("company")}
+          <div
+            className="relative"
             onMouseEnter={() => toggleMenu("company")}
             onMouseLeave={() => toggleMenu(null)}
-            buttonRef={companyRef}
           >
+            <DropdownButton
+              label="Company"
+              isOpen={openMenu === "company"}
+              onClick={() => toggleMenu(openMenu === "company" ? null : "company")}
+              buttonRef={companyRef}
+            />
             <SimpleDropdown items={COMPANY_ITEMS} isOpen={openMenu === "company"} />
-          </DropdownButton>
+          </div>
 
-          <DropdownButton
-            label="Our Solutions"
-            isOpen={openMenu === "solutions"}
-            onClick={() => toggleMenu("solutions")}
+          <div
+            className="relative"
             onMouseEnter={() => toggleMenu("solutions")}
             onMouseLeave={() => toggleMenu(null)}
-            buttonRef={solutionsRef}
           >
+            <DropdownButton
+              label="Our Solutions"
+              isOpen={openMenu === "solutions"}
+              onClick={() => toggleMenu(openMenu === "solutions" ? null : "solutions")}
+              buttonRef={solutionsRef}
+            />
             <MegaMenu
               items={SOLUTION_ITEMS}
               isOpen={openMenu === "solutions"}
               arrowLeft={arrowPositions.solutions}
             />
-          </DropdownButton>
+          </div>
 
-          <DropdownButton
-            label="Services"
-            isOpen={openMenu === "services"}
-            onClick={() => toggleMenu("services")}
+          <div
+            className="relative"
             onMouseEnter={() => toggleMenu("services")}
             onMouseLeave={() => toggleMenu(null)}
-            buttonRef={servicesRef}
           >
+            <DropdownButton
+              label="Services"
+              isOpen={openMenu === "services"}
+              onClick={() => toggleMenu(openMenu === "services" ? null : "services")}
+              buttonRef={servicesRef}
+            />
             <ServicesMegaMenu
               categories={SERVICES_CATEGORIES}
               isOpen={openMenu === "services"}
               arrowLeft={arrowPositions.services}
             />
-          </DropdownButton>
+          </div>
 
-          <DropdownButton
-            label="Contact Us"
-            isOpen={openMenu === "contact"}
-            onClick={() => toggleMenu("contact")}
+          <div
+            className="relative"
             onMouseEnter={() => toggleMenu("contact")}
             onMouseLeave={() => toggleMenu(null)}
-            buttonRef={contactRef}
           >
+            <DropdownButton
+              label="Contact Us"
+              isOpen={openMenu === "contact"}
+              onClick={() => toggleMenu(openMenu === "contact" ? null : "contact")}
+              buttonRef={contactRef}
+            />
             <ContactDropdown items={CONTACT_ITEMS} isOpen={openMenu === "contact"} />
-          </DropdownButton>
+          </div>
         </nav>
 
         {/* Mobile Hamburger Menu Button */}
